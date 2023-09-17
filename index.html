@@ -1,0 +1,77 @@
+<html>
+
+<head>
+    <title>Morocco Google Buildings</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css" crossorigin="anonymous">
+    <script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script type="text/javascript">
+        
+        const map = new maplibregl.Map({
+            container: 'map',
+            hash: 'map',
+            center: [-8.23806, 31.21655],
+            zoom: 14,
+            style: {
+                version: 8,
+                sources: {
+                    "morocco-google-buildings": {
+                        type: "vector",
+                        url: "https://tiles.swiss-map.cc/morocco-google-buildings.json",
+                        attribution: '© Google'
+                    },
+                    "osm": {
+                        "type": "raster",
+                        "tiles": ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+                        "tileSize": 256,
+                        "attribution": "&copy; OpenStreetMap Contributors",
+                        "maxzoom": 19
+                    }
+
+                },
+                layers: [
+                    {
+                        "id": "osm",
+                        "type": "raster",
+                        "source": "osm"
+                    },
+                    {
+                        "id": "morocco-google-buildings",
+                        "source": "morocco-google-buildings",
+                        "source-layer": "buildings",
+                        "type": "fill",
+                        "paint": {
+                            "fill-color": "#e056fd",
+                            "fill-opacity": 0.25
+                        }
+                    },
+                    {
+                        "id": "morocco-google-buildings-outline",
+                        "source": "morocco-google-buildings",
+                        "source-layer": "buildings",
+                        "type": "line",
+                        "paint": {
+                            "line-color": "#be2edd"
+                        }
+                    }
+                ]
+            }
+        });
+    </script>
+</body>
+
+</html>
